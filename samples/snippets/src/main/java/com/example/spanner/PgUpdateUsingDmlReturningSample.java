@@ -53,7 +53,7 @@ public class PgUpdateUsingDmlReturningSample {
           .readWriteTransaction()
           .run(
               transaction -> {
-                String sql =
+                final String sql =
                     "UPDATE Albums "
                         + "SET MarketingBudget = MarketingBudget * 2 "
                         + "WHERE SingerId = 1 and AlbumId = 1 "

@@ -52,7 +52,7 @@ public class PgInsertUsingDmlReturningSample {
           .readWriteTransaction()
           .run(
               transaction -> {
-                String sql =
+                final String sql =
                     "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES "
                         + "(12, 'Melissa', 'Garcia'), "
                         + "(13, 'Russell', 'Morales'), "

@@ -311,7 +311,7 @@ public class SpannerGraphSample {
         .readWriteTransaction()
         .run(
             transaction -> {
-              String sql =
+              final String sql =
                   "INSERT INTO Account (id, create_time, is_blocked) "
                       + "  VALUES"
                       + "    (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false),"
@@ -325,7 +325,7 @@ public class SpannerGraphSample {
         .readWriteTransaction()
         .run(
             transaction -> {
-              String sql =
+              final String sql =
                   "INSERT INTO AccountTransferAccount (id, to_id, create_time, amount) "
                       + "  VALUES"
                       + "    (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100),"
@@ -344,7 +344,7 @@ public class SpannerGraphSample {
         .readWriteTransaction()
         .run(
             transaction -> {
-              String sql = "UPDATE Account SET is_blocked = false WHERE id = 2";
+              final String sql = "UPDATE Account SET is_blocked = false WHERE id = 2";
               long rowCount = transaction.executeUpdate(Statement.of(sql));
               System.out.printf("%d Account record(s) updated.\n", rowCount);
               return null;
@@ -354,7 +354,7 @@ public class SpannerGraphSample {
         .readWriteTransaction()
         .run(
             transaction -> {
-              String sql =
+              final String sql =
                   "UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2";
               long rowCount = transaction.executeUpdate(Statement.of(sql));
               System.out.printf("%d AccountTransferAccount record(s) updated.\n", rowCount);
@@ -370,7 +370,7 @@ public class SpannerGraphSample {
         .readWriteTransaction()
         .run(
             transaction -> {
-              String sql =
+              final String sql =
                   "UPDATE Account SET is_blocked = true "
                       + "WHERE id IN {"
                       + "  GRAPH FinGraph"
@@ -439,7 +439,7 @@ public class SpannerGraphSample {
         .readWriteTransaction()
         .run(
             transaction -> {
-              String sql = "DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2";
+              final String sql = "DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2";
               long rowCount = transaction.executeUpdate(Statement.of(sql));
               System.out.printf("%d AccountTransferAccount record(s) deleted.\n", rowCount);
               return null;
@@ -449,7 +449,7 @@ public class SpannerGraphSample {
         .readWriteTransaction()
         .run(
             transaction -> {
-              String sql = "DELETE FROM Account WHERE id = 2";
+              final String sql = "DELETE FROM Account WHERE id = 2";
               long rowCount = transaction.executeUpdate(Statement.of(sql));
               System.out.printf("%d Account record(s) deleted.\n", rowCount);
               return null;

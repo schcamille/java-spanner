@@ -258,6 +258,8 @@ public abstract class AbstractStatementParser {
       this.optionsFromHints = optionsFromHints;
     }
 
+    // This is safe as it copies an existing Statement sql
+    @SuppressWarnings("CompileTimeConstant")
     private ParsedStatement copy(Statement statement, QueryOptions defaultQueryOptions) {
       return new ParsedStatement(
           this.type,
@@ -269,6 +271,8 @@ public abstract class AbstractStatementParser {
           this.optionsFromHints);
     }
 
+    // This is safe as it copies an existing Statement sql
+    @SuppressWarnings("CompileTimeConstant")
     private ParsedStatement forCache() {
       return new ParsedStatement(
           this.type,
@@ -510,6 +514,8 @@ public abstract class AbstractStatementParser {
     return parsedStatement.copy(statement, defaultQueryOptions);
   }
 
+  // This is safe as it copies an existing Statement sql
+  @SuppressWarnings("CompileTimeConstant")
   private ParsedStatement internalParse(Statement statement, QueryOptions defaultQueryOptions) {
     StatementHintParser statementHintParser =
         new StatementHintParser(getDialect(), statement.getSql());

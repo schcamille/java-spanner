@@ -998,7 +998,7 @@ public class SpannerSample {
     dbClient
         .readWriteTransaction()
         .run(transaction -> {
-          String sql =
+          final String sql =
               "INSERT INTO Singers (SingerId, FirstName, LastName) "
                   + " VALUES (10, 'Virginia', 'Watson')";
           long rowCount = transaction.executeUpdate(Statement.of(sql));
@@ -1013,7 +1013,7 @@ public class SpannerSample {
     dbClient
         .readWriteTransaction()
         .run(transaction -> {
-          String sql =
+          final String sql =
               "UPDATE Albums "
                   + "SET MarketingBudget = MarketingBudget * 2 "
                   + "WHERE SingerId = 1 and AlbumId = 1";
@@ -1029,7 +1029,7 @@ public class SpannerSample {
     dbClient
         .readWriteTransaction()
         .run(transaction -> {
-          String sql = "DELETE FROM Singers WHERE FirstName = 'Alice'";
+          final String sql = "DELETE FROM Singers WHERE FirstName = 'Alice'";
           long rowCount = transaction.executeUpdate(Statement.of(sql));
           System.out.printf("%d record deleted.\n", rowCount);
           return null;
@@ -1042,7 +1042,7 @@ public class SpannerSample {
     dbClient
         .readWriteTransaction()
         .run(transaction -> {
-          String sql =
+          final String sql =
               "UPDATE Albums "
                   + "SET LastUpdateTime = PENDING_COMMIT_TIMESTAMP() WHERE SingerId = 1";
           long rowCount = transaction.executeUpdate(Statement.of(sql));
@@ -1058,16 +1058,16 @@ public class SpannerSample {
         .readWriteTransaction()
         .run(transaction -> {
           // Insert record.
-          String sql =
+          final String sql =
               "INSERT INTO Singers (SingerId, FirstName, LastName) "
                   + " VALUES (11, 'Timothy', 'Campbell')";
           long rowCount = transaction.executeUpdate(Statement.of(sql));
           System.out.printf("%d record inserted.\n", rowCount);
           // Read newly inserted record.
-          sql = "SELECT FirstName, LastName FROM Singers WHERE SingerId = 11";
+          final String sqlRead = "SELECT FirstName, LastName FROM Singers WHERE SingerId = 11";
           // We use a try-with-resource block to automatically release resources held by
           // ResultSet.
-          try (ResultSet resultSet = transaction.executeQuery(Statement.of(sql))) {
+          try (ResultSet resultSet = transaction.executeQuery(Statement.of(sqlRead))) {
             while (resultSet.next()) {
               System.out.printf(
                   "%s %s\n",
@@ -1107,7 +1107,7 @@ public class SpannerSample {
     dbClient
         .readWriteTransaction()
         .run(transaction -> {
-          String sql =
+          final String sql =
               "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES "
                   + "(12, 'Melissa', 'Garcia'), "
                   + "(13, 'Russell', 'Morales'), "
@@ -1149,7 +1149,7 @@ public class SpannerSample {
         .run(transaction -> {
           // Transfer marketing budget from one album to another. We do it in a transaction to
           // ensure that the transfer is atomic.
-          String sql1 =
+          final String sql1 =
               "SELECT MarketingBudget from Albums WHERE SingerId = 2 and AlbumId = 2";
           ResultSet resultSet = transaction.executeQuery(Statement.of(sql1));
           long album2Budget = 0;
@@ -1161,7 +1161,7 @@ public class SpannerSample {
           // client library.
           long transfer = 200000;
           if (album2Budget >= transfer) {
-            String sql2 =
+            final String sql2 =
                 "SELECT MarketingBudget from Albums WHERE SingerId = 1 and AlbumId = 1";
             ResultSet resultSet2 = transaction.executeQuery(Statement.of(sql2));
             long album1Budget = 0;
@@ -1196,7 +1196,7 @@ public class SpannerSample {
 
   // [START spanner_dml_partitioned_update]
   static void updateUsingPartitionedDml(DatabaseClient dbClient) {
-    String sql = "UPDATE Albums SET MarketingBudget = 100000 WHERE SingerId > 1";
+    final String sql = "UPDATE Albums SET MarketingBudget = 100000 WHERE SingerId > 1";
     long rowCount = dbClient.executePartitionedUpdate(Statement.of(sql));
     System.out.printf("%d records updated.\n", rowCount);
   }
@@ -1204,7 +1204,7 @@ public class SpannerSample {
 
   // [START spanner_dml_partitioned_delete]
   static void deleteUsingPartitionedDml(DatabaseClient dbClient) {
-    String sql = "DELETE FROM Singers WHERE SingerId > 10";
+    final String sql = "DELETE FROM Singers WHERE SingerId > 10";
     long rowCount = dbClient.executePartitionedUpdate(Statement.of(sql));
     System.out.printf("%d records deleted.\n", rowCount);
   }
@@ -1216,16 +1216,16 @@ public class SpannerSample {
         .readWriteTransaction()
         .run(transaction -> {
           List<Statement> stmts = new ArrayList<Statement>();
-          String sql =
+          final String sql =
               "INSERT INTO Albums "
                   + "(SingerId, AlbumId, AlbumTitle, MarketingBudget) "
                   + "VALUES (1, 3, 'Test Album Title', 10000) ";
           stmts.add(Statement.of(sql));
-          sql =
+          final String sqlUpdate =
               "UPDATE Albums "
                   + "SET MarketingBudget = MarketingBudget * 2 "
                   + "WHERE SingerId = 1 and AlbumId = 3";
-          stmts.add(Statement.of(sql));
+          stmts.add(Statement.of(sqlUpdate));
           long[] rowCounts;
           try {
             rowCounts = transaction.batchUpdate(stmts);

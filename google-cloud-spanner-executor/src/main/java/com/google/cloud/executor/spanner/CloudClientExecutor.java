@@ -2137,6 +2137,8 @@ public class CloudClientExecutor extends CloudExecutor {
   }
 
   /** Execute action that generates database partitions for the given query. */
+  // Google internal class
+  @SuppressWarnings("CompileTimeConstant")
   private Status executeGenerateDbPartitionsQuery(
       GenerateDbPartitionsForQueryAction action,
       OutcomeSender sender,
@@ -2217,6 +2219,8 @@ public class CloudClientExecutor extends CloudExecutor {
   }
 
   /** Execute a partitioned update which runs different partitions in parallel. */
+  // Google internal class
+  @SuppressWarnings("CompileTimeConstant")
   private Status executePartitionedUpdate(
       PartitionedUpdateAction action, DatabaseClient dbClient, OutcomeSender sender) {
     try {
@@ -2325,6 +2329,8 @@ public class CloudClientExecutor extends CloudExecutor {
   }
 
   /** Execute action that executes a change stream query. */
+  // Google internal class
+  @SuppressWarnings("CompileTimeConstant")
   private Status executeExecuteChangeStreamQuery(
       String dbPath,
       boolean useMultiplexedSession,
@@ -2652,6 +2658,8 @@ public class CloudClientExecutor extends CloudExecutor {
   }
 
   /** Execute a query action request, store the results in the OutcomeSender. */
+  // Google internal class
+  @SuppressWarnings("CompileTimeConstant")
   private Status executeQuery(
       boolean useMultiplexedSession,
       QueryAction action,
@@ -2689,6 +2697,8 @@ public class CloudClientExecutor extends CloudExecutor {
   }
 
   /** Execute a dml update action request, store the results in the OutcomeSender. */
+  // Google internal class
+  @SuppressWarnings("CompileTimeConstant")
   private Status executeCloudDmlUpdate(
       boolean useMultiplexedSession,
       DmlAction action,
@@ -2722,6 +2732,8 @@ public class CloudClientExecutor extends CloudExecutor {
   }
 
   /** Execute a BatchDml update action request, store the results in the OutcomeSender. */
+  // Google internal class
+  @SuppressWarnings("CompileTimeConstant")
   private Status executeCloudBatchDmlUpdates(
       BatchDmlAction action, OutcomeSender sender, ExecutionFlowContext executionContext) {
     try {

@@ -41,6 +41,8 @@ class ClientSideStatementRunPartitionedQueryExecutor implements ClientSideStatem
     }
   }
 
+  // This is safe, a ParsedStatement sql comes from a Statement sql
+  @SuppressWarnings("CompileTimeConstant")
   @Override
   public StatementResult execute(
       ConnectionStatementExecutor connection, ParsedStatement parsedStatement) throws Exception {

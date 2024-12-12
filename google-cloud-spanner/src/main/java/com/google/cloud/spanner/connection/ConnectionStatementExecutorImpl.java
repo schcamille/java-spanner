@@ -809,6 +809,8 @@ class ConnectionStatementExecutorImpl implements ConnectionStatementExecutor {
     return StatementResultImpl.of(resultSet);
   }
 
+  // Private and only used to execute statement in PROFILE, ANALYZE OR PLAN
+  @SuppressWarnings("CompileTimeConstant")
   private StatementResult executeStatement(String sql, QueryAnalyzeMode queryAnalyzeMode) {
     Statement statement = Statement.newBuilder(sql).build();
     try (ResultSet resultSet = getConnection().analyzeQuery(statement, queryAnalyzeMode)) {

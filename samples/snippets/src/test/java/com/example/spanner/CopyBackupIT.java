@@ -80,7 +80,7 @@ public class CopyBackupIT extends SampleTestBaseV2 {
         projectId, instanceId, destinationBackupId).toString() + "]");
     assertThat(out).containsMatch(String.format(
         "Backup projects/%s/instances/%s/backups/%s of size \\d+ bytes was copied at (.*)",
-        projectId, instanceId, destinationBackupId, key));
+        projectId, instanceId, destinationBackupId));
   }
 
   static class ShouldRetryBackupOperation implements Predicate<SpannerException> {

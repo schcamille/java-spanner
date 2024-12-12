@@ -21,6 +21,7 @@ import static com.google.common.base.Preconditions.checkState;
 
 import com.google.cloud.spanner.ReadContext.QueryAnalyzeMode;
 import com.google.common.base.Preconditions;
+import com.google.errorprone.annotations.CompileTimeConstant;
 import com.google.spanner.v1.ExecuteSqlRequest.QueryOptions;
 import java.io.Serializable;
 import java.util.Collections;
@@ -87,13 +88,13 @@ public final class Statement implements Serializable {
     }
 
     /** Replaces the current SQL of this builder with the given string. */
-    public Builder replace(String sql) {
+    public Builder replace(@CompileTimeConstant final String sql) {
       sqlBuffer.replace(0, sqlBuffer.length(), sql);
       return this;
     }
 
     /** Appends {@code sqlFragment} to the statement. */
-    public Builder append(String sqlFragment) {
+    public Builder append(@CompileTimeConstant final String sqlFragment) {
       sqlBuffer.append(checkNotNull(sqlFragment));
       return this;
     }
@@ -139,12 +140,12 @@ public final class Statement implements Serializable {
   }
 
   /** Creates a {@code Statement} with the given SQL text {@code sql}. */
-  public static Statement of(String sql) {
+  public static Statement of(@CompileTimeConstant final String sql) {
     return newBuilder(sql).build();
   }
 
   /** Creates a new statement builder with the SQL text {@code sql}. */
-  public static Builder newBuilder(String sql) {
+  public static Builder newBuilder(@CompileTimeConstant final String sql) {
     return new Builder(sql);
   }
 
@@ -179,7 +180,7 @@ public final class Statement implements Serializable {
   }
 
   /** Returns a copy of this statement with the SQL string replaced by the given SQL string. */
-  public Statement withReplacedSql(String sql) {
+  public Statement withReplacedSql(@CompileTimeConstant final String sql) {
     return new Statement(sql, this.parameters, this.queryOptions);
   }
 

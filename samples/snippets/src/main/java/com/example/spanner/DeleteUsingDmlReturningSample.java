@@ -54,7 +54,7 @@ public class DeleteUsingDmlReturningSample {
           .readWriteTransaction()
           .run(
               transaction -> {
-                String sql =
+                final String sql =
                     "DELETE FROM Singers WHERE FirstName = 'Alice' THEN RETURN SingerId, FullName";
 
                 // readWriteTransaction.executeQuery(..) API should be used for executing

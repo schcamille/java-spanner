@@ -54,7 +54,7 @@ public class PgDeleteUsingDmlReturningSample {
           .readWriteTransaction()
           .run(
               transaction -> {
-                String sql =
+                final String sql =
                     "DELETE FROM Singers WHERE FirstName = 'Alice' RETURNING SingerId, FullName";
 
                 // readWriteTransaction.executeQuery(..) API should be used for executing
